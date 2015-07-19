@@ -64,22 +64,14 @@ img {
 </div>
 
 
-<div id="setting-global-environment" class="section level4">
-<h4>Setting Global Environment</h4>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(lattice)
+<div id="loading-packages" class="section level3">
+<h3>Loading Packages</h3>
+<pre class="r"><code>library(dplyr)
+library(lattice)
 require(knitr)</code></pre>
-<pre><code>## Loading required package: knitr</code></pre>
+</div>
+<div id="setting-global-environment" class="section level3">
+<h3>Setting Global Environment</h3>
 <pre class="r"><code>opts_chunk$set(echo = TRUE, fig.path = &quot;figure/&quot;)</code></pre>
 </div>
 <div id="loading-and-preprocessing-the-data" class="section level3">
