@@ -1,5 +1,5 @@
 # Reproducible Research: Peer Assessment 1
-###Loading Packages
+###Load Packages
 
 ```r
 library(dplyr)
@@ -7,7 +7,7 @@ library(lattice)
 require(knitr)
 ```
 
-###Setting Global Environment
+###Global Environment Set Up
 
 ```r
 opts_chunk$set(echo = TRUE, fig.path = "figure/")
