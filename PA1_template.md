@@ -7,7 +7,7 @@ library(lattice)
 require(knitr)
 ```
 
-###Global Environment Set Up
+### Set Up Global Environment
 
 ```r
 opts_chunk$set(echo = TRUE, fig.path = "figure/")
