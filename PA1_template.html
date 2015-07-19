@@ -64,8 +64,8 @@ img {
 </div>
 
 
-<div id="loading-and-preprocessing-the-data" class="section level3">
-<h3>Loading and preprocessing the data</h3>
+<div id="setting-global-environment" class="section level4">
+<h4>Setting Global Environment</h4>
 <pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: 'dplyr'
@@ -78,8 +78,13 @@ img {
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(lattice)
-
-if (!file.exists(&quot;activity.csv&quot;)) {
+require(knitr)</code></pre>
+<pre><code>## Loading required package: knitr</code></pre>
+<pre class="r"><code>opts_chunk$set(echo = TRUE, fig.path = &quot;figure/&quot;)</code></pre>
+</div>
+<div id="loading-and-preprocessing-the-data" class="section level3">
+<h3>Loading and preprocessing the data</h3>
+<pre class="r"><code>if (!file.exists(&quot;activity.csv&quot;)) {
   unzip(&quot;activity.zip&quot;)
 }
 

@@ -5,12 +5,16 @@ output:
     keep_md: yes
 ---
 
-
-###Loading and preprocessing the data
-```{r, echo=TRUE}
+###Setting Global Environment
+```{r setoptions, echo=TRUE}
 library(dplyr)
 library(lattice)
+require(knitr)
+opts_chunk$set(echo = TRUE, fig.path = "figure/")
+```
 
+###Loading and preprocessing the data
+```{r}
 if (!file.exists("activity.csv")) {
   unzip("activity.zip")
 }
@@ -23,7 +27,7 @@ Data.Raw <- read.csv(file="activity.csv",
 # What is mean total number of steps taken per day?
 
 #### 1. Total steps taken each day
-```{r echo=TRUE}
+```{r}
 Data.Base <- na.omit(Data.Raw)
 Data.TotalStepsPerDay <- Data.Base %>% 
   group_by(date) %>%
@@ -34,18 +38,18 @@ head(Data.TotalStepsPerDay)
 ```
 
 #### 2. Histogram of total number steps taken per day
-```{r fig.width=8, fig.height=6, echo=TRUE}
+```{r fig.width=8, fig.height=6}
 barplot(Data.TotalStepsPerDay$totalsteps, names.arg=Data.TotalStepsPerDay$date, ylim=c(0, 25000), 
         xlab="Date", ylab="Number of Steps")
 ```
 
 #### 3. Mean of total number of steps taken per day
-```{r echo=TRUE}
+```{r}
 mean(Data.TotalStepsPerDay$totalsteps)
 ```
 
 #### 4. Median of total number of steps taken per day
-```{r echo=TRUE}
+```{r}
 median(Data.TotalStepsPerDay$totalsteps)
 ```
 
@@ -53,7 +57,7 @@ median(Data.TotalStepsPerDay$totalsteps)
 ## What is the average daily activity pattern?
 
 #### 1. Time series plot of the 5-minute interval and the average number of steps taken across all days 
-```{r fig.width=8, fig.height=6, echo=TRUE}
+```{r fig.width=8, fig.height=6}
 Data.AvgStepsPerInterval <- Data.Base %>% 
   group_by(interval) %>%
   select(interval, steps) %>%
@@ -64,14 +68,14 @@ xyplot(avgsteps~interval, Data.AvgStepsPerInterval, type="l", xlab = "Average St
 ```
 
 #### 2. 5-minute interval, on average across all the days in the dataset, with maximum number of steps
-```{r, echo=TRUE}
+```{r}
 Data.AvgStepsPerInterval$interval[which.max(Data.AvgStepsPerInterval$avgsteps)]
 ```
 
 ## Imputing missing values
 
 #### 1. Total number of missing values in the dataset
-```{r, echo=TRUE}
+```{r}
 sum(is.na(Data.Raw$steps))
 ```
 
@@ -79,7 +83,7 @@ sum(is.na(Data.Raw$steps))
 The missing values will be replaced with the mean for corresponding 5-minute interval
 
 #### 3. New dataset that is equal to the original dataset but with the missing data filled in
-```{r, echo=TRUE}
+```{r}
 Data.NAFilled <- Data.Raw
 for(i in 1:nrow(Data.NAFilled))
 {
@@ -91,7 +95,7 @@ for(i in 1:nrow(Data.NAFilled))
 }
 ```
 
-```{r, echo=TRUE}
+```{r}
 Data.NAFilled.TotalStepsPerDay <- Data.NAFilled %>% 
   group_by(date) %>%
   select(date, steps) %>%
@@ -101,17 +105,17 @@ head(Data.NAFilled.TotalStepsPerDay)
 ```
 
 #### 4. Histogram of total number steps taken per day
-```{r fig.width=8, fig.height=6, echo=TRUE}
+```{r fig.width=8, fig.height=6}
 barplot(Data.NAFilled.TotalStepsPerDay$totalsteps, names.arg=Data.NAFilled.TotalStepsPerDay$date, ylim=c(0, 25000), xlab="Date", ylab="Number of Steps")
 ```
 
 #### 5. Mean of total number of steps taken per day
-```{r echo=TRUE}
+```{r}
 mean(Data.NAFilled.TotalStepsPerDay$totalsteps)
 ```
 
 #### 6. Median of total number of steps taken per day
-```{r echo=TRUE}
+```{r}
 median(Data.NAFilled.TotalStepsPerDay$totalsteps)
 ```
 
@@ -121,7 +125,7 @@ The mean has remained the same but the median has a little increase
 ## Are there differences in activity patterns between weekdays and weekends?
 
 #### 1. A new factor variable in the dataset with two levels -- "weekday" and "weekend"
-```{r, echo=TRUE}
+```{r}
 getDay <- function(date) {
     ifelse ((weekdays(date) %in% c("Saturday", "Sunday")), "weekend", "weekday")
   }
@@ -134,7 +138,7 @@ str(Data.NAFilled)
 
 #### 2. Panel plot containing a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
 
-```{r fig.width=8, fig.height=6, echo=TRUE}
+```{r fig.width=8, fig.height=6}
 Data.NAFilled.StepsPerInterval <- Data.NAFilled %>% 
   group_by(interval, dayType) %>%
   select(interval, dayType, steps) %>%

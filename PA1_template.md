@@ -1,7 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 
-
-###Loading and preprocessing the data
+####Setting Global Environment
 
 ```r
 library(dplyr)
@@ -22,7 +21,20 @@ library(dplyr)
 
 ```r
 library(lattice)
+require(knitr)
+```
 
+```
+## Loading required package: knitr
+```
+
+```r
+opts_chunk$set(echo = TRUE, fig.path = "figure/")
+```
+
+###Loading and preprocessing the data
+
+```r
 if (!file.exists("activity.csv")) {
   unzip("activity.zip")
 }
@@ -65,7 +77,7 @@ barplot(Data.TotalStepsPerDay$totalsteps, names.arg=Data.TotalStepsPerDay$date, 
         xlab="Date", ylab="Number of Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![](figure/unnamed-chunk-3-1.png) 
 
 #### 3. Mean of total number of steps taken per day
 
@@ -101,7 +113,7 @@ Data.AvgStepsPerInterval <- Data.Base %>%
 xyplot(avgsteps~interval, Data.AvgStepsPerInterval, type="l", xlab = "Average Steps", ylab ="Intervals")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
+![](figure/unnamed-chunk-6-1.png) 
 
 #### 2. 5-minute interval, on average across all the days in the dataset, with maximum number of steps
 
@@ -170,7 +182,7 @@ head(Data.NAFilled.TotalStepsPerDay)
 barplot(Data.NAFilled.TotalStepsPerDay$totalsteps, names.arg=Data.NAFilled.TotalStepsPerDay$date, ylim=c(0, 25000), xlab="Date", ylab="Number of Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![](figure/unnamed-chunk-11-1.png) 
 
 #### 5. Mean of total number of steps taken per day
 
@@ -229,4 +241,4 @@ Data.NAFilled.StepsPerInterval <- Data.NAFilled %>%
 xyplot(avgsteps~interval|dayType, Data.NAFilled.StepsPerInterval, type="l", xlab = "Interval", ylab = "Number of Steps", layout = c(1, 2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
+![](figure/unnamed-chunk-15-1.png) 
